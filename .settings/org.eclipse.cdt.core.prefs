@@ -1,0 +1,6 @@
+eclipse.preferences.version=1
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.config.elf.debug.620710886/PATH/delimiter=;
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.config.elf.debug.620710886/PATH/operation=replace
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.config.elf.debug.620710886/PATH/value=C\:\\Program Files (x86)\\GNU ARM Eclipse\\Build Tools\\2.4-201503242026\\bin;D\:\\Program Files\\toolchains\\gcc-arm-none-eabi-6-2017-q1-update-win32\\bin;C\:/Program Files/Java/jre1.8.0_261/bin/server;C\:/Program Files/Java/jre1.8.0_261/bin;C\:/Program Files/Java/jre1.8.0_261/lib/amd64;C\:\\Program Files\\Python38\\Scripts\\;C\:\\Program Files\\Python38\\;C\:\\Program Files (x86)\\Common Files\\Oracle\\Java\\javapath;C\:\\Windows\\system32;C\:\\Windows;C\:\\Windows\\System32\\Wbem;C\:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C\:\\Windows\\System32\\OpenSSH\\;C\:\\Program Files\\TortoiseGit\\bin;C\:\\Users\\gkorovin\\AppData\\Local\\Microsoft\\WindowsApps;d\:\\eclipse-2019-12
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.config.elf.debug.620710886/append=true
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.config.elf.debug.620710886/appendContributed=true
