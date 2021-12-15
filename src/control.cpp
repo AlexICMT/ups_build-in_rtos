@@ -8,6 +8,3 @@
  */
 
 #include "control.hpp"
-#include "MDR32F9Qx_i2c.h"
-
-

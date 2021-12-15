@@ -8,9 +8,6 @@
  * $Revision: 1449 $
  * $Date: 2017-01-10 10:11:24 +0300 (Вт, 10 янв 2017) $
  *
- * @note
- * <h2><center>&copy; Copyright KW-Systems</center></h2>
- * <h2><center><a href="https://kwsystems.ru/">KW-Systems</a></center></h2>
  *
  *****************************************************************************/
 

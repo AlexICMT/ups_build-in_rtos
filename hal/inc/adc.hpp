@@ -12,6 +12,8 @@
 
 #include <cstdint>
 
+#include "thread.hpp"
+
 namespace kip5 {
 
 namespace handlers {
@@ -20,10 +22,13 @@ extern "C" void ADC_IRQHandler();
 
 namespace adc {
 
-class Adc
+class Adc : public thread::Thread
 {
 public:
 	Adc();
+
+	Adc(const char* name, int stackDepth, int priority);
+
 	Adc(const Adc&) = delete;
 
 	struct AdcData
@@ -58,7 +63,7 @@ static int ADC_READY_4_SAMPLES;
 //zxc выбираем либо первые 4 , либо вторые 4. в зависимости от того какой индекс текущий.те старую половину усредняем
 static inline const AdcData* getBuffer() {return adcBuffer + adcHalfBufferSize - (adcBufferIndex & ~(adcHalfBufferSize - 1));}
 
-void initInternalADCPorts();
+static void initInternalADCPorts();
 
 void initAdcForSingleConvertion();
 void initAdcForSwitchingConvertion();
@@ -96,6 +101,10 @@ inline float r_CH4() const {return CH4;}
 inline float r_CH5() const {return CH5;}
 inline float r_CH6() const {return CH6;}
 inline float r_CH7() const {return CH7;}
+
+protected:
+
+virtual void execute() override;
 
 private:
 	static constexpr int CHANNEL = 8;

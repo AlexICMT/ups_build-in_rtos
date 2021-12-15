@@ -13,6 +13,7 @@
 #include "MDR32F9Qx_port.h"
 #include "MDR32F9Qx_rst_clk.h"
 #include "adc.hpp"
+#include "app.hpp"
 
 namespace kip5 {
 namespace adc {
@@ -38,7 +39,13 @@ namespace adc {
 
 Adc::Adc()
 {
-	initInternalADCPorts();
+	initAdcForSwitchingConvertion();
+}
+
+Adc::Adc(const char* name, int stackDepth, int priority)
+: Thread(name, stackDepth, priority)
+{
+	//initInternalADCPorts();
 	initAdcForSwitchingConvertion();
 	//initAdcForSwitchingConvertionSynch();
 	//initAdcForSingleConvertion();
@@ -153,6 +160,7 @@ void Adc::initAdcForSwitchingConvertion()
 
 	//NVIC_SetPriority(ADC_IRQn, 1);
 	//NVIC_EnableIRQ(ADC_IRQn);
+	NVIC_SetPriority(DMA_IRQn, 3);
 	NVIC_EnableIRQ(DMA_IRQn);
 }
 
@@ -327,7 +335,10 @@ Adc::AdcDataAdd Adc::adcaddBuffer1;
 int Adc::adcBufferIndex = 0;
 int Adc::ADC_READY_4_SAMPLES;
 
-
+void Adc::execute()
+{
+	app::App* app = app::App::instance();
+}
 
 } // namespace adc
 
