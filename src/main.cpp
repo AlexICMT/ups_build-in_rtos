@@ -36,6 +36,8 @@ void vTask2(void *pv)
 	for(;;)
 	{
 	//charPainterMin->setAutoNextLine(true);
+	if(!buttons.getKey(kip5::KEY::ALL))
+	{
 	charPainterMin->clear();
 
 	charPainterMin->printf("x00=%04d,  x01=%04d\n", asensors_switch->r_adc_ch0(), asensors_switch->r_adc_ch1());
@@ -45,42 +47,15 @@ void vTask2(void *pv)
 	charPainterMin->printf("Trf =%04d,  Vrf =%04d", asensors_switch->r_adc_chT(), asensors_switch->r_adc_chV());
 
 	charPainterMin->update();
-
+	}
+	if(buttons.getKey(kip5::KEY::SELECT))
+	{
+		charPainterMin->clear();
+		charPainterMin->printf("SELECT is pressed");
+		charPainterMin->update();
+	}
 	//kip5::delay::delay_ms(100);
 	vTaskDelay(5000);
-	}
-	vTaskDelete(NULL);
-}
-
-void vTask3(void *pv)
-{
-	for(;;)
-	{
-		//charPainterMin->setAutoNextLine(true);
-		charPainterMin->clear();
-
-		charPainterMin->printf("work");
-
-		charPainterMin->update();
-		kip5::delay::delay_ms(2000);
-
-	}
-	vTaskDelete(NULL);
-}
-
-void vTask4(void *pv)
-{
-	for(;;)
-	{
-		//charPainterMin->setAutoNextLine(true);
-		charPainterMin->clear();
-
-		charPainterMin->printf("yeah");
-
-		charPainterMin->update();
-		kip5::delay::delay_ms(2000);
-		vTaskDelay(2000);
-
 	}
 	vTaskDelete(NULL);
 }

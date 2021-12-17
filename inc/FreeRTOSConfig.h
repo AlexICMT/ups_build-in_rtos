@@ -2,24 +2,35 @@
  * @file FreeRTOSConfig.h
  * @date 25.09.2015
  * @author vlunyov
- * @brief РќР°СЃС‚СЂРѕР№РєРё FreeRTOS
+ * @brief Настройки FreeRTOS
  *
  * Last modified by: $Author: vlunyov $
  * $Revision: 1575 $
- * $Date: 2017-03-07 09:49:41 +0300 (Р’С‚, 07 РјР°СЂ 2017) $
+ * $Date: 2017-03-07 09:49:41 +0300 (Вт, 07 мар 2017) $
  *
- * @note
- * <h2><center>&copy; Copyright KW-Systems</center></h2>
- * <h2><center><a href="https://kwsystems.ru/">KW-Systems</a></center></h2>
  *
  *****************************************************************************/
 
 #ifndef FREERTOS_CONFIG_H
 #define FREERTOS_CONFIG_H
-
+//Set to 1 to use the preemptive RTOS scheduler,
+//or 0 to use the cooperative RTOS scheduler
 #define configUSE_PREEMPTION			1
+//Set to 1 if you wish to use an idle hook, or 0 to omit an idle hook
 #define configUSE_IDLE_HOOK				0
+//Set to 1 if you wish to use an tick hook, or 0 to omit an tick hook.
 #define configUSE_TICK_HOOK				1
+/*
+ * The malloc() failed hook function is a hook (or callback) function that,
+ * if defined and configured, will be called if pvPortMalloc() ever returns NULL.
+ * NULL will be returned only if there is insufficient FreeRTOS heap memory remaining
+ * for the requested allocation to succeed.
+ * If configUSE_MALLOC_FAILED_HOOK is set to 1 then the application must define a
+ * malloc() failed hook function. If configUSE_MALLOC_FAILED_HOOK is set to 0 then
+ * the malloc() failed hook function will not be called, even if one is defined.
+ * Malloc() failed hook functions must have the name and prototype shown below.
+ * void vApplicationMallocFailedHook( void );
+ */
 #define configUSE_MALLOC_FAILED_HOOK	1
 #define configCPU_CLOCK_HZ				( ( uint32_t ) 80000000 )
 #define configTICK_RATE_HZ				( ( TickType_t ) 1000 )
@@ -74,14 +85,14 @@
 #endif
 
 // Interrupt priority levels:
-// 0 РќР°РёРІС‹СЃС€РёР№ РїСЂРёРѕСЂРёС‚РµС‚ РїСЂРµСЂС‹РІР°РЅРёР№
+// 0 Наивысший приоритет прерываний
 // 1
 // 2
 // 3 FreeRTOS API configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY
 // 4 FreeRTOS API
 // 5 FreeRTOS API
 // 6 FreeRTOS API
-// 7 FreeRTOS API configKERNEL_INTERRUPT_PRIORITY РќРёР·С€РёР№ РїСЂРёРѕСЂРёС‚РµС‚ РїСЂРµСЂС‹РІР°РЅРёР№
+// 7 FreeRTOS API configKERNEL_INTERRUPT_PRIORITY Низший приоритет прерываний
 
 // The lowest interrupt priority that can be used in a call to a "set priority" function.
 #define configLIBRARY_LOWEST_INTERRUPT_PRIORITY			( (1 << configPRIO_BITS ) - 1 )
