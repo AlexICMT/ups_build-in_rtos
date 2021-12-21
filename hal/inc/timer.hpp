@@ -17,6 +17,8 @@ namespace kip5 {
 
 namespace handlers {
 extern "C" void Timer2_IRQHandler();
+
+extern "C" void Timer1_IRQHandler();
 } // namespace handlers
 
 namespace timer {
@@ -33,9 +35,10 @@ public:
 	void meas_tim_config();//frq by frq
 	inline uint16_t get_cnt_pls() const {return static_cast<uint16_t>(cnt_pls_loc);};
 	void read();
-
+	static void tim_config_rtos();
+	static void start_tim();
 	friend void handlers::Timer2_IRQHandler();
-
+	friend void handlers::Timer1_IRQHandler();
 private:
 	int cnt_pls_loc = 0;
 };

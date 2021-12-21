@@ -11,6 +11,12 @@
  *
  *****************************************************************************/
 
+/*
+ * Notes:
+ * Note that the configTOTAL_HEAP_SIZE setting in FreeRTOSConfig.h
+ * has no effect when heap_3 is used.
+ */
+
 #ifndef FREERTOS_CONFIG_H
 #define FREERTOS_CONFIG_H
 //Set to 1 to use the preemptive RTOS scheduler,
@@ -32,19 +38,61 @@
  * void vApplicationMallocFailedHook( void );
  */
 #define configUSE_MALLOC_FAILED_HOOK	1
+/*
+ * Enter the frequency in Hz at which the internal clock that drives
+ * the peripheral used to generate the tick interrupt will be executing -
+ * this is normally the same clock that drives the internal CPU clock.
+ * This value is required in order to correctly configure timer peripherals.
+ */
 #define configCPU_CLOCK_HZ				( ( uint32_t ) 80000000 )
+/*
+ * The frequency of the RTOS tick interrupt.
+ * The tick interrupt is used to measure time.
+ */
 #define configTICK_RATE_HZ				( ( TickType_t ) 1000 )
+/*
+ * The number of priorities available to the application tasks.
+ */
 #define configMAX_PRIORITIES			( 4 )
+// The size of the stack used by the idle task. A stack size of 50 means 200 bytes
 #define configMINIMAL_STACK_SIZE		( ( uint16_t ) 50 )
 //#define configTOTAL_HEAP_SIZE			( ( size_t ) ( 24 * 1024 ) )
+/*
+ * The maximum permissible length of the descriptive name given to a task when
+ * the task is created. The length is specified in the number of
+ * characters including the NULL termination byte.
+ */
 #define configMAX_TASK_NAME_LEN			( 8 )
+/*
+ * Defining configUSE_16_BIT_TICKS as 1 causes TickType_t to be defined
+ * (typedef'ed) as an unsigned 16bit type. Defining configUSE_16_BIT_TICKS
+ * as 0 causes TickType_t to be defined (typedef'ed) as an unsigned 32bit type.
+ */
 #define configUSE_16_BIT_TICKS			0
+/*
+ * The preemptive scheduler is being used.
+ * The application creates tasks that run at the idle priority.
+ */
 #define configIDLE_SHOULD_YIELD			1
+
+/*
+ * Setting configUSE_TASK_NOTIFICATIONS to 1
+ * (or leaving configUSE_TASK_NOTIFICATIONS undefined)
+ * will include direct to task notification functionality
+ * and its associated API in the build.
+ * Each task consumes 8 additional bytes of RAM when direct
+ * to task notifications are included in the build.
+ */
+
+//Set to 1 to include mutex functionality in the build,
+//or 0 to omit mutex functionality from the build.
 #define configUSE_MUTEXES				1
 #define configUSE_RECURSIVE_MUTEXES		0
 #define configUSE_COUNTING_SEMAPHORES	1
 #define configCHECK_FOR_STACK_OVERFLOW	2
 #define configGENERATE_RUN_TIME_STATS	0
+//added for vTaskGetRunTimeStats()
+//#define configSUPPORT_DYNAMIC_ALLOCATION 1
 
 #define configENABLE_BACKWARD_COMPATIBILITY		1
 
@@ -52,8 +100,19 @@
 #define configUSE_TRACE_FACILITY				1
 #define configUSE_STATS_FORMATTING_FUNCTIONS	1
 #else
+/*
+ * Set to 1 if you wish to include additional structure members
+ * and functions to assist with execution visualisation and tracing.
+ */
 #define configUSE_TRACE_FACILITY				1
+/*
+ * Set configUSE_TRACE_FACILITY and configUSE_STATS_FORMATTING_FUNCTIONS to 1
+ *  to include the vTaskList() and vTaskGetRunTimeStats() functions in the build.
+ *  Setting either to 0 will omit vTaskList() and vTaskGetRunTimeStates()
+ *  from the build.
+ */
 #define configUSE_STATS_FORMATTING_FUNCTIONS	1
+
 #endif
 
 // Co-routine definitions.
@@ -115,6 +174,13 @@
 #define vPortSVCHandler SVC_Handler
 #define xPortPendSVHandler PendSV_Handler
 #define xPortSysTickHandler SysTick_Handler
+
+extern void vConfigureTimerForRunTimeStats();
+extern volatile unsigned long ulHighFrequencyTimerTicks;
+
+//#define portCONFIGURE_TIMER_FOR_RUN_TIME_STATS() vConfigureTimerForRunTimeStats()
+//#define portGET_RUN_TIME_COUNTER_VALUE() ulHighFrequencyTimerTicks
+
 
 //#define configASSERT( ( x ) )	if( ( x ) == 0) vAssertCalled(__FILE__, __LINE__)
 //#define configASSERT( x ) if( ( x ) == 0 ) { taskDISABLE_INTERRUPTS(); for(;;); }
